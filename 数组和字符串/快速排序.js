@@ -12,18 +12,16 @@ const quickSort = function(arr){
     if(arr.length < 2){
         return arr
     }
-    let p = arr.splice(0,1)
-    const left = [];
-    const right = []
-    for(let i = 0;i < arr.length; i++){
-        if(arr[i]<p[0]){
+    let left = []
+    let right = []
+    let p = arr.splice(0, 1)
+    for(let i=0; i<arr.length; i++){
+        if(arr[i] < p[0]){
             left.push(arr[i])
-        } else{
-           right.push(arr[i])
+        } else {
+            right.push(arr[i])
         }
     }
     return quickSort(left).concat(p).concat(quickSort(right))
 }
-
-
 console.log(quickSort([2,3,22,1,2444,32,3,44,6,77]))
