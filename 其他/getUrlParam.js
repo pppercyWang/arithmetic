@@ -1,7 +1,11 @@
 function getUrlParamsByName(serach,name) {
     let reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i')
     let res = serach.substr(1).match(reg)
-    return decodeURIComponent(res[2])
+    if(res !== null){
+        return decodeURIComponent(res[2])
+    } else {
+        return null
+    }
 }
 
 
