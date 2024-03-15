@@ -1,0 +1,25 @@
+<body>
+    <div id="app">
+        <span>阿流落：{{ name }}</span>
+        <input type="text" v-model="name"></input>
+        <span>更多：{{ more.like }}</span>
+        <input type="text" v-model="more.like"></input>
+    </div>
+</body>
+
+<script src="./vue.js"></script>
+
+<script>
+    const vm = new Vue(
+        {
+            el: "#app",
+            data: {
+                name: "王德澳",
+                more: {
+                    like: "一件三连"
+                }
+            }
+        }
+    )
+    console.log(vm)
+</script>
