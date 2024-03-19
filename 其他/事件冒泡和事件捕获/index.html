@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			#grandpaDiv{
+				width:400px;
+				height:400px;
+				background-color:red;
+			}	
+			#fatherDiv{
+				width:300px;
+				height:300px;
+				background-color:yellow;
+			}	
+			#meDiv{
+				width:200px;
+				height:200px;
+				background-color:pink;
+			}	
+		</style>
+	</head>
+	<body>
+		<div id="grandpaDiv">
+			<div id="fatherDiv">
+				<div id="meDiv">
+				</div>
+			</div>
+		</div>
+		
+	</body>
+</html>
+<script type="text/javascript">
+ 
+//事件冒泡和捕获只有DOM2级支持。DOM0级和IE只支持事件冒泡。
+//1、事件冒泡：从事件源朝父级一直到根元素（HTML）。当某个元素的某类型事件被触发时，那么它的父元素同类型的事件也会被触发，一直触发到根源上；
+//             从具体的元素到不确定的元素。
+//2、事件捕获：
+//             从根元素（HTML）到事件源，当某个元素的某类型事件被触发时，先触发根元素的同类型事件，朝子一级触发，一直触发到事件源。
+//             从不确定的元素到具体的元素；
+ 
+function $(id){
+	return document.getElementById(id);
+}
+ 
+window.onload = function(){
+//事件冒泡：DOM2级的事件绑定，把第三个参数写成false；
+
+	$("grandpaDiv").addEventListener("click",function(){
+		alert("爷爷被点了");
+	},false);
+	
+	$("fatherDiv").addEventListener("click",function(){
+		alert("爸爸被点了");
+	},false);
+	
+	$("meDiv").addEventListener("click",function(){
+		alert("我被点了");
+	},false);
+	
+	
+//事件捕获：DOM2级的事件绑定，把第三个参数写成true；
+	
+	// $("grandpaDiv").addEventListener("click",function(){
+	// 	alert("爷爷被点了");
+	// },true);
+	
+	// $("fatherDiv").addEventListener("click",function(){
+	// 	alert("爸爸被点了");
+	// },true);
+	
+	// $("meDiv").addEventListener("click",function(){
+	// 	alert("我被点了");
+	// },true);
+	
+}
+</script>

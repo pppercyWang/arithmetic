@@ -100,7 +100,7 @@ class Dependency{
     }
 }
 
-// new 一个watch，去触发getters
+// new 一个watch，去访问属性，触发getters
 class Watcher{
     constructor(vm, key, callback){
         this.vm = vm;

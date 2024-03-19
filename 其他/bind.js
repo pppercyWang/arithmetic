@@ -5,9 +5,6 @@ Function.prototype.myBind = function(obj, ...arg){
     }
 }
 
-
-
-
 function test(a, b, c){
     console.log(this.name, a, b, c, '--------')
 }
