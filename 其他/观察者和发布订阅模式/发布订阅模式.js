@@ -4,6 +4,9 @@ let eventEmitter = {};
 // 缓存列表，存放 event 及 fn
 eventEmitter.list = {};
 
+// eventEmitter.list = {
+//     'article': [f1,f2,f3]
+// }
 // 订阅
 eventEmitter.on = function (event, fn) {
     let _this = this;

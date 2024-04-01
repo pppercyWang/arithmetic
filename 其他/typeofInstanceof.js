@@ -1,0 +1,7 @@
+console.log(typeof 10)
+console.log(typeof true)
+console.log(typeof '10')
+console.log(typeof {})
+console.log(typeof [1,2,3])
+console.log([1,2,3] instanceof Array)
+console.log({} instanceof Object)

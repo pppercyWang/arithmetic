@@ -1,3 +1,15 @@
+/**
+ * 在new一个vue实例式，会传入原始数据，通过数据劫持将原始数据变成响应式数据，具体是在Observer类中，
+对数据对象进行递归便利，对其所有的children设置Object.defineProperty。同时，会有一个解析模版的过程，
+对template的插值表达式/带v-model标签进行匹配，再通过插值表达式的值找到vue实例的原始数据，修改nodeValue，并且new一
+个watcher，将修改nodevalue的方法作为参数传递给watcher构造函数。在watcher的构造函数中，会去访问下数据，
+触发defineProperty的getter，并在这里进行依赖的收集。当数据发生改变时，就会触发setter，去触发依赖列表
+所有watcher的update方法，这个方法就是之前修改nodevalue的方法。此时就完成了数据驱动视图更新。在之前解析
+模版时，比如一个input，通过addEventListener方法去监听视图的变化，再去修改响应式数据。
+这样就实现了视图驱动数据更新，总之，vue的双向绑定就是基于数据劫持和观察者模式实现的
+ */
+
+
 class Vue {
     constructor(obj_instance){
         this.$data = obj_instance.data;
