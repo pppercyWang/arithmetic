@@ -1,7 +1,7 @@
 Function.prototype.myBind = function(obj, ...arg){
-    let fn = this;
-    return function(){
-        fn.apply(obj, [...arg, ...arguments])
+	let fn = this;
+	return function(){
+		fn.apply(obj,[...arg, ...arguments])
     }
 }
 
