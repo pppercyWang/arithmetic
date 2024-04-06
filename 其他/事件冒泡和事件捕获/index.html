@@ -33,6 +33,11 @@
 </html>
 <script type="text/javascript">
  
+ /**
+  * addEventListener(type, listener);
+addEventListener(type, listener, options);
+addEventListener(type, listener, useCapture);
+  * /
 //事件冒泡和捕获只有DOM2级支持。DOM0级和IE只支持事件冒泡。
 //1、事件冒泡：从事件源朝父级一直到根元素（HTML）。当某个元素的某类型事件被触发时，那么它的父元素同类型的事件也会被触发，一直触发到根源上；
 //             从具体的元素到不确定的元素。

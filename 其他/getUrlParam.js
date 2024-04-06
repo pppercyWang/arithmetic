@@ -14,3 +14,4 @@ console.log(getUrlParamsByName('?xx=1&das=22', 'xx'))
 
 
 
+    
