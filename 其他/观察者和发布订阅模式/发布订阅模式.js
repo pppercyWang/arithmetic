@@ -1,49 +1,64 @@
-// 公众号对象
-let eventEmitter = {};
-
-// 缓存列表，存放 event 及 fn
-eventEmitter.list = {};
-
-// 订阅
-eventEmitter.on = function (event, fn) {
-    let _this = this;
-    // 如果对象中没有对应的 event 值，也就是说明没有订阅过，就给 event 创建个缓存列表
-    // 如有对象中有相应的 event 值，把 fn 添加到对应 event 的缓存列表里
-    (_this.list[event] || (_this.list[event] = [])).push(fn);
-    return _this;
-};
-
-// 发布
-eventEmitter.emit = function (event, msg) {
-    let _this = this;
-        fns = [..._this.list[event]];
-    // 如果缓存列表里没有 fn 就返回 false
-    if (!fns || fns.length === 0) {
-        return false;
+class PubSub {
+    constructor() {
+        // 事件中心
+        // 存储格式: warTask: [], routeTask: []
+        // 每种事件(任务)下存放其订阅者的回调函数
+        this.events = {}
     }
-    // 遍历 event 值对应的缓存列表，依次执行 fn
-    fns.forEach(fn => {
-        fn.apply(_this, [msg]);
-    });
-    return _this;
-};
+    // 订阅方法
+    subscribe(type, cb) {
+        if (!this.events[type]) {
+            this.events[type] = [];
+        }
+        this.events[type].push(cb);
+    }
+    // 发布方法
+    publish(type, ...args) {
+        if (this.events[type]) {
+            this.events[type].forEach(cb => cb(...args))
+        }
+    }
+    // 取消订阅方法
+    unsubscribe(type, cb) {
+        if (this.events[type]) {
+            const cbIndex = this.events[type].findIndex(e=> e === cb)
+            if (cbIndex != -1) {
+                this.events[type].splice(cbIndex, 1);
+            }
+        }
+        if (this.events[type].length === 0) {
+            delete this.events[type];
+        }
+    }
+    unsubscribeAll(type) {
+        if (this.events[type]) {
+            delete this.events[type];
+        }
+    }
+}
 
-function user1 (content) {
-    console.log('用户1订阅了:', content);
-};
+// 创建一个中介公司
+let pubsub = new PubSub();
 
-function user2 (content) {
-    console.log('用户2订阅了:', content);
-};
+// 弟子一订阅战斗任务
+pubsub.subscribe('warTask', function (taskInfo){
+    console.log("宗门殿发布战斗任务，任务信息:" + taskInfo);
+})
+// 弟子一订阅战斗任务
+pubsub.subscribe('routeTask', function (taskInfo) {
+    console.log("宗门殿发布日常任务，任务信息:" + taskInfo);
+});
+// 弟子三订阅全类型任务
+pubsub.subscribe('allTask', function (taskInfo) {
+    console.log("宗门殿发布五星任务，任务信息:" + taskInfo);
+});
+pubsub.subscribe('allTask', function (taskInfo) {
+    console.log("宗门殿发布五星任务，任务信息xxx:" + taskInfo);
+});
+// 发布战斗任务
+pubsub.publish('warTask', "猎杀时刻");
+pubsub.publish('allTask', "猎杀时刻");
 
-// 订阅
-eventEmitter.on('article', user1);
-eventEmitter.on('article', user2);
-
-// 发布
-eventEmitter.emit('article', 'Javascript 发布-订阅模式22');
-
-/*
-    用户1订阅了: Javascript 发布-订阅模式
-    用户2订阅了: Javascript 发布-订阅模式
-*/
+// 发布日常任务
+pubsub.publish('routeTask', "种树浇水");
+pubsub.publish('allTask', "种树浇水");

@@ -1,32 +1,22 @@
 function deepClone(obj){
-    let objClone = Array.isArray(obj)?[]:{};
-    if(obj && typeof obj === 'object'){
-        for (key in obj){
-            if(obj.hasOwnProperty(key)){
-                if(obj[key] && typeof obj[key] === "object"){
-                    objClone[key] = deepClone(obj[key])
-                } else {
-                    objClone[key] = obj[key]
-                }
-            }
+    const cloneObj = obj instanceof Array ? [] : {}
+    for(key in obj){
+        if(typeof obj[key] === 'object'){
+            cloneObj[key] = deepClone(obj[key])
+        } else{ 
+            cloneObj[key] = obj[key]
         }
     }
-    return objClone;
+    return cloneObj
 }
 
+console.log(deepClone([{d:'xxx', x:'xxx2'},[1,2,3],3]))
+console.log(deepClone({
+    a: 'xxxx',
+    b: {
+        a: 'xxxx',
+        b: 'dsadasa'
+    },
+    c: 'ccccc'
+}))
 
-// let a=[1,2,3,4],
-//     b=deepClone(a);
-// a[0]=2;
-// console.log(a,b);
-
-
-let a = {a: '123', b: {
-    xxx: '1',
-    b: 2
-}}
-
-let b = deepClone(a)
-a.a = 'ccc'
-
-console.log(a, b)

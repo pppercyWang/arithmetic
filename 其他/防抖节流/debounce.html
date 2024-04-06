@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+</head>
+<body>
+    <div style="height: 5000px;"></div>
+</body>
+<script>
+    function debounce(fn, delay) {
+       let timer;
+       return function(...arg){
+            if(timer){
+                clearTimeout(timer)
+            }
+            timer = setTimeout(() => {
+                fn.apply(this, arg)
+            }, delay);
+       }
+    }
+
+// 测试
+function task() {
+  console.log('run task')
+}
+const debounceTask = debounce(task, 1000)
+window.addEventListener('scroll', debounceTask)
+</script>
+</html>

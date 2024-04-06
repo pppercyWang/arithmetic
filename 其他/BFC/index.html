@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+    section {
+        height: 150px;
+    }
+    .box {
+        background-color: rgb(224, 206, 247);
+        border: 5px solid rebeccapurple;
+    }
+    .box[style] {
+        background-color: aliceblue;
+        border: 5px solid steelblue;
+    }
+    .float {
+        float: left;
+        width: 200px;
+        height: 100px;
+        background-color: rgba(255, 255, 255, 0.5);
+        border: 1px solid black;
+        padding: 10px;
+    }
+    </style>
+</head>
+<!-- BFC块级格式上下文 -->
+<!-- 形成独立的渲染区域，内部元素不会影响外界。通俗一点来讲，可以把BFC当成一个封闭的大盒子，无论里面的元素如何翻江倒海，都不会影响到外部。
+-->
+<!-- 举例：给某个子元素设置float：left，会使其元素脱离文档流，此时父容器就不会随着这个元素撑开，这是我们就需要BFC，使其成为一个独立的渲染区域，比如给父元素添加一个overflow：hidden（只要不是visible就行） -->
+<!-- 应用场景：清除浮动 -->
+<body>
+    <section>
+        <div class="box">
+          <div class="float">我是浮动的盒子！</div>
+          <p>我是容器内的内容。</p>
+        </div>
+      </section>
+      <section>
+        <div class="box" style="overflow:auto">
+          <div class="float">我是浮动的盒子！</div>
+          <p>我是 <code>overflow:auto</code> 容器内部的内容。</p>
+        </div>
+      </section>
+      <section>
+        <div class="box" style="display:flow-root">
+          <div class="float">我是浮动的盒子！</div>
+          <p>我是 <code>display:flow-root</code> 容器内部的内容。</p>
+        </div>
+      </section>
+</body>
+</html>
